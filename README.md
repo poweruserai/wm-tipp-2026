@@ -3,6 +3,12 @@
 Selbst gehostetes Tippspiel für Familie & Freunde zur Fußball-WM 2026.
 Keine Cloud, keine Tracker, alle Daten bleiben auf dem eigenen Server.
 
+<p align="center">
+  <img src="screenshots/spielplan.png" width="260" alt="Spielplan">
+  <img src="screenshots/rangliste.png" width="260" alt="Rangliste">
+  <img src="screenshots/einstellungen.png" width="260" alt="Einstellungen">
+</p>
+
 ## Schnellstart (Node.js)
 
 ```bash
