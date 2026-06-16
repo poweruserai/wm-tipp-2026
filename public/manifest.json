@@ -1,0 +1,11 @@
+{
+  "name": "WM 2026 Tippspiel",
+  "short_name": "WM-Tipp",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a5c38",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }
+  ]
+}

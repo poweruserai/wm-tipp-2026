@@ -1,0 +1,35 @@
+services:
+  app:
+    build: .
+    container_name: wm-tipp-app
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - wm-data:/app/data
+    networks:
+      - wm-net
+    expose:
+      - "3000"
+
+  nginx:
+    image: nginx:alpine
+    container_name: wm-tipp-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/www/certbot:/var/www/certbot:ro
+    networks:
+      - wm-net
+    depends_on:
+      - app
+
+volumes:
+  wm-data:
+
+networks:
+  wm-net:
+    driver: bridge

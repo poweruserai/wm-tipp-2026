@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#1a5c38">
+  <title>WM 2026 Tippspiel</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+</head>
+<body>
+
+  <!-- Login Modal -->
+  <div class="modal-overlay hidden" id="login-modal">
+    <div class="modal">
+      <div class="modal-header">🏆 WM 2026 Tippspiel</div>
+      <p class="modal-sub">Bitte Passwort eingeben</p>
+      <input class="text-input" type="password" id="login-password" placeholder="Passwort"
+        onkeydown="if(event.key==='Enter')login()">
+      <div id="login-error" style="color:#e63946;font-size:.85rem;min-height:1.2em;margin:4px 0 8px"></div>
+      <button class="btn-primary full-width" onclick="login()">Anmelden</button>
+    </div>
+  </div>
+
+  <!-- Player Modal -->
+  <div class="modal-overlay hidden" id="player-modal">
+    <div class="modal">
+      <div class="modal-header">⚽ WM 2026 Tippspiel</div>
+      <p class="modal-sub">Wer bist du?</p>
+      <div id="player-btn-list"></div>
+    </div>
+  </div>
+
+  <!-- Result Modal -->
+  <div class="modal-overlay hidden" id="result-modal">
+    <div class="modal">
+      <div class="modal-header" id="result-modal-title">Ergebnis eintragen</div>
+      <div class="score-input-group">
+        <div class="score-team" id="result-home-name"></div>
+        <div class="score-controls">
+          <button class="score-btn" onclick="changeResult('home',-1)">−</button>
+          <span class="score-display" id="result-home-val">0</span>
+          <button class="score-btn" onclick="changeResult('home',1)">+</button>
+          <span class="score-sep">:</span>
+          <button class="score-btn" onclick="changeResult('away',-1)">−</button>
+          <span class="score-display" id="result-away-val">0</span>
+          <button class="score-btn" onclick="changeResult('away',1)">+</button>
+        </div>
+        <div class="score-team" id="result-away-name"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-ghost" onclick="closeResultModal()">Abbrechen</button>
+        <button class="btn-primary" onclick="submitResult()">Speichern</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <div class="header-title">🏆 WM 2026</div>
+      <div class="header-right">
+        <span id="refresh-time" class="refresh-badge"></span>
+        <button class="player-chip" id="player-chip" onclick="showPlayerModal()">
+          <span id="player-chip-name">–</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main id="app" class="hidden">
+
+    <!-- Spielplan Tab -->
+    <div id="tab-spielplan" class="tab-content active">
+      <div class="filter-bar">
+        <select id="stage-filter" onchange="renderMatches()">
+          <option value="all">Alle Spiele</option>
+          <option value="GROUP_STAGE">Gruppenphase</option>
+          <option value="ROUND_OF_32">Runde der letzten 32</option>
+          <option value="ROUND_OF_16">Achtelfinale</option>
+          <option value="QUARTER_FINALS">Viertelfinale</option>
+          <option value="SEMI_FINALS">Halbfinale</option>
+          <option value="FINAL">Finale</option>
+        </select>
+      </div>
+      <div id="matches-container"></div>
+      <div id="no-matches" class="empty-state hidden">
+        <div class="empty-icon">⚽</div>
+        <p>Noch keine Spiele geladen.</p>
+        <p class="hint">Einstellungen → „Spielplan laden" tippen.</p>
+      </div>
+    </div>
+
+    <!-- Rangliste Tab -->
+    <div id="tab-rangliste" class="tab-content">
+      <div id="leaderboard"></div>
+    </div>
+
+    <!-- Einstellungen Tab -->
+    <div id="tab-settings" class="tab-content">
+
+      <section class="settings-block">
+        <h3>👥 Spielernamen</h3>
+        <div id="player-name-inputs"></div>
+        <button class="btn-primary full-width" onclick="savePlayerNames()">Namen speichern</button>
+      </section>
+
+      <section class="settings-block">
+        <h3>🔒 Passwort ändern</h3>
+        <input class="text-input" type="password" id="current-password-input" placeholder="Aktuelles Passwort">
+        <input class="text-input" type="password" id="new-password-input" placeholder="Neues Passwort">
+        <button class="btn-primary full-width" onclick="changePassword()">Passwort ändern</button>
+        <div id="password-status"></div>
+      </section>
+
+      <section class="settings-block">
+        <h3>🌍 Weltmeister-Tipp <span class="badge-bonus">+10 Bonuspunkte</span></h3>
+        <p class="hint">Wer wird Weltmeister 2026? Gesperrt wenn das Finale beginnt.</p>
+        <div id="wm-settings"></div>
+      </section>
+
+      <section class="settings-block">
+        <h3>🔄 Spielplan &amp; Ergebnisse</h3>
+        <p class="hint">Kostenloser API-Key: <strong>football-data.org</strong></p>
+        <input class="text-input" type="text" id="api-key-input" placeholder="API-Key (optional)">
+        <button class="btn-primary full-width" onclick="syncMatches()">Spielplan laden / Ergebnisse aktualisieren</button>
+        <div id="sync-status"></div>
+      </section>
+
+      <section class="settings-block">
+        <h3>📊 Punkte-System</h3>
+        <div class="rules">
+          <div class="rule"><span class="pts gold">4P</span> Exaktes Ergebnis (z.B. 2:1 → 2:1)</div>
+          <div class="rule"><span class="pts silver">2P</span> Richtige Tendenz (Sieg / Unentschieden)</div>
+          <div class="rule"><span class="pts">0P</span> Falsch getippt</div>
+          <div class="rule"><span class="pts joker-pts">x2</span> Joker eingesetzt (Punkte verdoppeln)</div>
+          <div class="rule"><span class="pts bonus-pts">+10P</span> Weltmeister richtig getippt</div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" id="nav-spielplan" onclick="switchTab('spielplan')">
+      <span class="nav-icon">⚽</span>
+      <span>Spielplan</span>
+    </button>
+    <button class="nav-btn" id="nav-rangliste" onclick="switchTab('rangliste')">
+      <span class="nav-icon">🏅</span>
+      <span>Rangliste</span>
+    </button>
+    <button class="nav-btn" id="nav-settings" onclick="switchTab('settings')">
+      <span class="nav-icon">⚙️</span>
+      <span>Einstellungen</span>
+    </button>
+  </nav>
+
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>

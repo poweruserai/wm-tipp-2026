@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>WM 2026 Tippspiel – Regeln</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      max-width: 700px; margin: 0 auto; padding: 40px 32px;
+      color: #1a1a1a; background: #fff;
+    }
+    header { text-align: center; border-bottom: 3px solid #1a5c38; padding-bottom: 20px; margin-bottom: 32px; }
+    header h1 { font-size: 2rem; color: #1a5c38; margin-bottom: 4px; }
+    header p { font-size: 1rem; color: #666; }
+
+    h2 { font-size: 1.15rem; color: #1a5c38; margin: 28px 0 10px;
+         border-left: 4px solid #1a5c38; padding-left: 10px; }
+
+    p, li { font-size: .95rem; line-height: 1.6; }
+    ul, ol { padding-left: 24px; margin-top: 6px; }
+    li { margin-bottom: 5px; }
+
+    .points-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    .points-table th, .points-table td { border: 1px solid #ddd; padding: 10px 14px; text-align: left; font-size: .92rem; }
+    .points-table th { background: #1a5c38; color: #fff; font-weight: 700; }
+    .points-table tr:nth-child(even) { background: #f7f7f7; }
+    .pts-badge {
+      display: inline-block; padding: 3px 10px; border-radius: 6px;
+      font-weight: 800; font-size: .88rem;
+    }
+    .gold   { background: #fff3cd; color: #856404; }
+    .green  { background: #d1e7dd; color: #0f5132; }
+    .red    { background: #f8d7da; color: #842029; }
+    .blue   { background: #cce5ff; color: #004085; }
+    .amber  { background: #fff3cd; color: #7a5c00; }
+
+    .example {
+      background: #f2f4f3; border-radius: 8px; padding: 14px 16px; margin-top: 10px; font-size: .9rem;
+    }
+    .example strong { color: #1a5c38; }
+
+    .joker-box {
+      background: #fffbf0; border: 2px dashed #f0b429;
+      border-radius: 8px; padding: 14px 16px; margin-top: 10px;
+    }
+
+    footer { margin-top: 48px; text-align: center; font-size: .8rem; color: #aaa; border-top: 1px solid #eee; padding-top: 16px; }
+
+    @media print {
+      body { padding: 20px 24px; }
+      @page { margin: 1.5cm; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🏆 WM 2026 Familien-Tippspiel</h1>
+  <p>Offizielles Regelwerk der Familie</p>
+</header>
+
+<h2>1. Wie funktioniert das Spiel?</h2>
+<p>Jeder tippt vor jedem Spiel das Ergebnis (Heimteam : Auswärtsteam). Wer am Ende
+des Turniers die meisten Punkte hat, gewinnt!</p>
+
+<h2>2. Punkte-System</h2>
+<table class="points-table">
+  <tr>
+    <th>Punkte</th>
+    <th>Bedingung</th>
+    <th>Beispiel</th>
+  </tr>
+  <tr>
+    <td><span class="pts-badge gold">4 Punkte</span></td>
+    <td><strong>Exaktes Ergebnis</strong> – Toranzahl beider Teams stimmt genau</td>
+    <td>Tipp 2:1 → Ergebnis 2:1 ✅</td>
+  </tr>
+  <tr>
+    <td><span class="pts-badge green">2 Punkte</span></td>
+    <td><strong>Richtige Tendenz</strong> – Sieg, Niederlage oder Unentschieden stimmt</td>
+    <td>Tipp 2:0 → Ergebnis 3:1 ✅ (beide Sieg)</td>
+  </tr>
+  <tr>
+    <td><span class="pts-badge red">0 Punkte</span></td>
+    <td><strong>Falsch</strong> – Tendenz stimmt nicht</td>
+    <td>Tipp 1:0 → Ergebnis 0:2 ❌</td>
+  </tr>
+  <tr>
+    <td><span class="pts-badge blue">+10 Punkte</span></td>
+    <td><strong>Weltmeister-Tipp</strong> – wer wird Weltmeister? (einmalig)</td>
+    <td>Tipp: Frankreich → Frankreich wird Weltmeister ✅</td>
+  </tr>
+  <tr>
+    <td><span class="pts-badge amber">× 2</span></td>
+    <td><strong>Joker</strong> – Punkte für ein Spiel verdoppeln (einmalig)</td>
+    <td>4 Punkte → 8 Punkte nach Joker-Einsatz</td>
+  </tr>
+</table>
+
+<div class="example">
+  <strong>Rechenbeispiel:</strong><br>
+  Mama tippt 10 Spiele: 2× Exakt (8P) + 5× Tendenz (10P) + 1× Joker auf Exakt (+4P) + Weltmeister richtig (+10P)
+  = <strong>32 Punkte</strong>
+</div>
+
+<h2>3. Tipp-Deadline</h2>
+<p>Tipps können bis <strong>30 Minuten vor Anpfiff</strong> abgegeben oder geändert werden.
+Danach ist das Feld gesperrt. Nicht vergessen – wer nicht tippt, bekommt 0 Punkte!</p>
+
+<h2>4. Der Joker 🃏</h2>
+<div class="joker-box">
+  <ul>
+    <li>Jeder Spieler hat <strong>genau einen Joker</strong> für das gesamte Turnier.</li>
+    <li>Der Joker verdoppelt die Punkte für <strong>ein frei wählbares Spiel</strong>.</li>
+    <li>Er kann vor dem Tipp-Schluss (30 Min. vor Anpfiff) auch auf ein anderes Spiel umgelegt werden.</li>
+    <li>Der Joker muss zusammen mit dem Tipp gesetzt werden – nicht nachträglich.</li>
+    <li>Maximaler Gewinn durch Joker: <strong>8 Punkte</strong> (4P × 2)</li>
+  </ul>
+</div>
+
+<h2>5. Weltmeister-Tipp 🌍</h2>
+<ul>
+  <li>Einmalig tippen, wer Weltmeister 2026 wird.</li>
+  <li>Gesperrt sobald das Finale beginnt (30 Min. vor Anpfiff).</li>
+  <li>Wer richtig liegt, bekommt <strong>10 Bonuspunkte</strong>.</li>
+  <li>Den Weltmeister einzutragen erfolgt nach dem Finale in den Einstellungen.</li>
+</ul>
+
+<h2>6. Ergebnisse &amp; Synchronisation</h2>
+<ul>
+  <li>Ergebnisse werden per Knopfdruck aus dem Internet geladen (football-data.org).</li>
+  <li>Alternativ kann jeder die Ergebnisse manuell über das Stift-Symbol eintragen.</li>
+  <li>Die App aktualisiert sich alle 3 Minuten automatisch.</li>
+</ul>
+
+<h2>7. Siegerehrung</h2>
+<p>Am Ende des Turniers wird der Gesamtsieger auf der Rangliste angezeigt. Bei
+Punktgleichstand gewinnt, wer mehr exakte Ergebnisse getippt hat.</p>
+
+<footer>
+  WM 2026 Familien-Tippspiel · Erstellt mit Claude Code · Viel Spaß und möge der Beste gewinnen! ⚽
+</footer>
+
+</body>
+</html>
